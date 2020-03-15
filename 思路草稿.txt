@@ -1,0 +1,51 @@
+#农民: 17
+#地主: 20
+*********************************************************************************************
+注明:抢地主功能仍有漏洞
+a.确认牌型正确 
+--------------------------------------------enum---------------------------------------------
+   error one two three three_one boom king_boom three_two straight plain_one plain_two pair
+---------------------------------------------------------------------------------------------
+-> 单张
+-> 对子 王炸
+-> 三张
+-> 四张 三带一 炸弹
+-> 三带二 5
+-> 顺子 5-12张
+-> 飞机 3+1 -- 8 、12 、16 、20 | 3+2 -- 10 、15 、20
+-> 连对 6 、8 、10 、12 、14 、16 、18 、20
+-> 不出
+--->确认完后,重置默认error(出牌前重置)
+----->初步代码搭建
+enum card_type
+{
+error, --ok
+empty, --ok
+one, --ok
+two, --ok
+three, --ok
+three_one, --ok
+three_two, --ok
+straight, --ok
+join_pair, --ok
+four_two, --ok
+plain, --ok
+plain_one, --ok
+plain_two, --ok
+boom, --ok
+};
+>> static card_type Type = card_type::error;
+>> <public:(static) fun_c> {if(...) Type = ...;
+...;}
+>> if(Type >= card_type::one && Type <= king_boom) true;
+   else false;
+>> Type = card_type::error;(在do{...}中)
+>> 顺子
+case 1: 在3-A之间 sToint() 3-14
+case 2: 连续 点数间隔永远等于1 索引差 = 点数差 int nums[size] = {...!=size-1} for(...) nums[i+1] - nums[i] = 1;
+case 3: 大于等于5张 size() >= 5
+*********************************************************************************************
+b.确认牌型一致(先不考虑炸弹)
+-------------------------------------------
+1.牌的类型一致
+2.牌的数量一致
